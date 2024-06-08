@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: uDiscovery
+server:
+  port: ${UDISCOVERY_PORT:8761}
+eureka: 
+  client:
+    enabled: true
+    fetch-registry: false
+    register-with-eureka: false
+    

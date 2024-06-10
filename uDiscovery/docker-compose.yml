@@ -1,0 +1,14 @@
+services:
+  eureka-server:
+    build: .
+    container_name: eureka-server
+    ports:
+      - "8761:8761"
+    networks:
+      - shared_network
+    environment:
+      UDISCOVERY_PORT: 8761
+      EUREKA_SERVER_HOSTNAME: peer1
+networks:
+  shared_network:
+    external: true

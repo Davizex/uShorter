@@ -1,0 +1,14 @@
+services:
+  ushorter:
+    build: .
+    container_name: ushorter
+    ports:
+      - "8086:8086"
+    networks:
+      - shared_network
+    environment:
+      CASSANDRA_POINTS: cassandra
+      EUREKA_SERVER_URL: http://eureka-server:8761/eureka/
+networks:
+  shared_network:
+    external: true

@@ -1,0 +1,31 @@
+
+spring:
+  application:
+    name: uShort      
+  cassandra:
+    keyspace-name: ${CASSANDRA_KEYSPACE_NAME:ushort}
+    local-datacenter: ${CASSANDRA_LOCAL_DATACENTER:daviCenter1}
+    contact-points: ${CASSANDRA_POINTS:localhost}
+    port: ${CASSANDRA_PORT:9042}
+    username: ${CASSANDRA_USER:cassandra}
+    password: ${CASSANDRA_PASSWROD:cassandra}
+    schema-action: ${CASSANDRA_SCHEMA_ACTION:CREATE_IF_NOT_EXISTS}
+server:
+  port: ${APP_PORT:8086}
+  servlet:
+    context-path: /v1/ushort
+eureka:
+  client:
+    enabled: ${EUREKA_CLIENT_ENABLED:true}
+    service-url:
+      defaultZone: ${EUREKA_SERVER_URL:http://localhost:8761/eureka/}
+app:
+  cors:
+    headers: ${APP_CORS_HEADERS:*}
+    methods: ${APP_CORS_METHODS:*}
+    origins: ${APP_CORS_ORIGINS:*}
+  encoded-length: 8
+  
+logging:
+  level:
+    org.springframework.cassandra: TRACE   

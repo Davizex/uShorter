@@ -1,0 +1,43 @@
+{
+  "groups": [
+    {
+      "name": "app",
+      "type": "com.usto.re.ushort.configs.properties.AppProperties",
+      "sourceType": "com.usto.re.ushort.configs.properties.AppProperties"
+    },
+    {
+      "name": "app.cors",
+      "type": "com.usto.re.ushort.configs.properties.AppCorsProperties",
+      "sourceType": "com.usto.re.ushort.configs.properties.AppCorsProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "app.cors",
+      "type": "com.usto.re.ushort.configs.properties.AppCorsProperties",
+      "sourceType": "com.usto.re.ushort.configs.properties.AppProperties"
+    },
+    {
+      "name": "app.cors.headers",
+      "type": "java.lang.String[]",
+      "sourceType": "com.usto.re.ushort.configs.properties.AppCorsProperties"
+    },
+    {
+      "name": "app.cors.methods",
+      "type": "java.lang.String[]",
+      "sourceType": "com.usto.re.ushort.configs.properties.AppCorsProperties"
+    },
+    {
+      "name": "app.cors.origins",
+      "type": "java.lang.String[]",
+      "sourceType": "com.usto.re.ushort.configs.properties.AppCorsProperties"
+    },
+    {
+      "name": "app.encoded-length",
+      "type": "java.lang.Integer",
+      "sourceType": "com.usto.re.ushort.configs.properties.AppProperties",
+      "defaultValue": 0
+    }
+  ],
+  "hints": []
+}

@@ -1,1 +1,13 @@
-
+services:
+  shortng:
+    build: .
+    container_name: shortNg
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    networks:
+      - shared_network
+networks:
+  shared_network:
+    external: true

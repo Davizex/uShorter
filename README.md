@@ -25,9 +25,28 @@ Este projeto é um aplicativo URL Shortener construído usando uma arquitetura m
 
 Obs: todos os serviços estão em docker.
 
-### Começando 
+### Começando
 
-#### Configurando a base de dados 
+#### Configurando a base de dados
+
+### Executando a aplicação
+
+#### Executando em Docker
+
+1. Builde todas as imagens para rodar o serviço e crie a rede.
+
+```bash
+docker compose build
+docker network create shared_network
+```
+
+2. Inicie o banco de dados
+
+```bash
+docker compose up cassandra
+```
+
+Após isso é necessário criar
 
 ```sh
 docker exec -it cassandra cqlsh`
@@ -53,24 +72,6 @@ CREATE TABLE IF NOT EXISTS access_count (
 ) WITH CLUSTERING ORDER BY (code DESC);
 ```
 
-### Executando a aplicação
-
-#### Executando em Docker
-
-
-1. Builde todas as imagens para rodar o serviço e crie a rede.
-
-   ```bash
-    docker compose build
-    docker network create shared_network
-   ```
-
-2. Inicie o banco de dados
-
-   ```bash
-    docker compose up cassandra
-   ```
-
 3. Inicie o service discovery
 
    ```bash
@@ -94,6 +95,7 @@ CREATE TABLE IF NOT EXISTS access_count (
 ```bash
     docker compose up ushortng
 ```
+
 #### API back-end
 
 Variaveis de ambiente:
@@ -113,6 +115,7 @@ APP_CORS_HEADERS: Allowed CORS headers (e.g., Content-Type,Authorization).
 APP_CORS_ORIGINS: Allowed CORS origins (e.g., http://localhost:8100).
 APP_CORS_METHODS: Allowed CORS methods (e.g., GET,POST,PUT,DELETE).
 ```
+
 #### API Gateway
 
 Variaveis de ambiente:
@@ -127,6 +130,7 @@ GATEWAY_CORS_HEADERS: Allowed CORS headers (e.g., Content-Type,Authorization).
 GATEWAY_CORS_ORIGINS: Allowed CORS origins (e.g., http://localhost:8100).
 GATEWAY_CORS_METHODS: Allowed CORS methods (e.g., GET,POST,PUT,DELETE).
 ```
+
 #### Discovery Server
 
 Variaveis de ambiente:

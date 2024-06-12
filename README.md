@@ -37,7 +37,7 @@ docker exec -it cassandra cqlsh`
 CREATE KEYSPACE IF NOT EXISTS ushort
 WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 
-USE url_shortener;
+USE ushort;
 
 CREATE TABLE IF NOT EXISTS tinyurl (
     code text PRIMARY KEY,

@@ -2,7 +2,7 @@ server:
   port: ${APP_PORT:8080}
 eureka:
   client:
-    enabled: ${EUREKA_CLIENT_ENABLED:false}
+    enabled: ${EUREKA_CLIENT_ENABLED:true}
     service-url:
       defaultZone: ${EUREKA_SERVER_URL:http://localhost:8761/eureka/}
 spring:
@@ -10,12 +10,16 @@ spring:
     name: uGateway
   cloud:
     gateway:
+      default-filters:
+      - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+      globalcors:
+        cors-configurations:
+          '[/**]':
+              allowedOrigins: ${GATEWAY_CORS_ORIGINS:*}
+              allowedHeaders: ${GATEWAY_CORS_HEADERS:*}
+              allowedMethods: ${GATEWAY_CORS_METHODS:*} 
       routes:
-      - id: uShort-back
+      - id: ushort
         uri: ${USHORT_BACK_ADDRESS:lb://ushort}
         predicates:
         - Path=/v1/ushort/**
-        
-logging:
-  level:
-    org.springframework.cloud.gateway: TRACE 

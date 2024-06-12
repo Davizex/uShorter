@@ -1,0 +1,55 @@
+<ion-content>
+  <div class="flex-center">
+    <ion-card>
+      <ion-card-content>
+        <ion-list>
+          <ion-item>
+            <ion-icon
+              class="ion-sm"
+              slot="start"
+              name="link"
+              class="ion-align-self-cente"
+            ></ion-icon>
+            <ion-input
+              type="text"
+              label="Encurte sua URL"
+              labelPlacement="stacked"
+              placeholder="https://url.aqui"
+              [value]="originalUrl"
+              (input)="onInput($event)"
+              required
+            ></ion-input>
+            <ion-button
+              size="small"
+              *ngIf="cleanButton"
+              (click)="onClearTiny()"
+            >
+              <ion-icon name="trash-bin" slot="icon-only"></ion-icon>
+            </ion-button>
+          </ion-item>
+          <ion-button
+            fill="outline"
+            shape="round"
+            size="block"
+            (click)="onClick()"
+          >
+            Encurtar
+          </ion-button>
+        </ion-list>
+        <ion-list *ngIf="shortedUrl != null">
+          <ion-item>
+            <ion-label>
+              URL Encurtada: <a [href]="shortedUrl">{{ shortedUrl }}</a>
+            </ion-label>
+            <ion-icon
+              class="ion-sm"
+              slot="start"
+              name="link"
+              class="ion-align-self-center"
+            ></ion-icon>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

@@ -1,0 +1,71 @@
+services:
+  cassandra:
+    image: cassandra:jammy
+    container_name: cassandra
+    ports:
+      - "9042:9042" # Porta padrão do Cassandra
+    environment:
+      - CASSANDRA_CLUSTER_NAME=my_cluster
+      - CASSANDRA_SEEDS=cassandra
+      - CASSANDRA_DC=daviCenter1
+      - CASSANDRA_RACK=rack1
+      - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
+      - CASSANDRA_AUTHENTICATOR=PasswordAuthenticator
+      - CASSANDRA_AUTHORIZER=CassandraAuthorizer
+      - CASSANDRA_ROLE_MANAGER=CassandraRoleManager
+      - CASSANDRA_SUPERUSER_NAME=cassandra
+      - CASSANDRA_SUPERUSER_PASSWORD=cassandra
+    volumes:
+      - /var/lib/cassandra:/var/lib/cassandra
+    networks:
+      - shared_network
+  eureka-server:
+    build: ./uDiscovery
+    container_name: eureka-server
+    ports:
+      - "8761:8761"
+    networks:
+      - shared_network
+    environment:
+      UDISCOVERY_PORT: 8761
+      EUREKA_SERVER_HOSTNAME: peer1
+  gateway-server:
+    build: ./uGateway
+    container_name: gateway-server
+    depends_on:
+      - eureka-server
+    ports:
+      - "8080:8080" 
+    networks:
+      - shared_network
+    environment:
+      APP_PORT: 8080
+      EUREKA_CLIENT_ENABLED: true
+      EUREKA_SERVER_URL: http://eureka-server:8761/eureka/
+  ushortng:
+    build: ./uShortNg
+    depends_on:
+      - gateway-server
+    container_name: shortNg
+    ports:
+      - 80:80
+    volumes:
+      - ./uShortNg/nginx.conf:/etc/nginx/nginx.conf
+    networks:
+      - shared_network
+  ushorter:
+    build: ./uShortBack
+    depends_on:
+      - gateway-server
+      - cassandra
+    container_name: ushorter
+    ports:
+      - "8086:8086"
+    networks:
+      - shared_network
+    environment:
+      CASSANDRA_POINTS: cassandra
+      EUREKA_SERVER_URL: http://eureka-server:8761/eureka/
+networks:
+  shared_network:
+    external: true
